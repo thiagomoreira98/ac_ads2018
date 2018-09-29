@@ -5,6 +5,9 @@ import * as firebase from 'firebase';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { Facebook } from '@ionic-native/facebook';
 
+import { NavController } from 'ionic-angular';
+import { DashboardPage } from '../dashboard/dashboard';
+
 
 @Component({
     selector: 'page-home',
@@ -14,13 +17,21 @@ export class HomePage {
     isUserLoggedIn: any = false;
     userData: any = {};
 
-    constructor(public toastCtrl: ToastController, public platform: Platform, public googleplus: GooglePlus, public facebook: Facebook) {
+    constructor(
+        public toastCtrl: ToastController, 
+        public platform: Platform, 
+        public googleplus: GooglePlus, 
+        public facebook: Facebook,
+        public navCtrl : NavController
+        ) {
         platform.ready().then(() => {
             firebase.auth().onAuthStateChanged(authData => {
                 if (authData != null) {
                     this.isUserLoggedIn = true;
                     this.userData = authData;
                     console.log(authData);
+                    //this.displayToast('Usuário autenticado!');
+                    this.navCtrl.setRoot(DashboardPage, { userData: this.userData });
                 } else {
                     this.userData = {};
                 }
@@ -41,6 +52,7 @@ export class HomePage {
         // browser login
         if (this.platform.is('core')) {
             firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(gpRes => {
+                console.log(gpRes);
                 this.displayToast('Login Success')
                 this.userData = gpRes.additionalUserInfo.profile;
             }).catch(err => this.displayToast(err));
@@ -62,6 +74,18 @@ export class HomePage {
     }
 
     facebookLogin() {
+        
+        firebase.auth().signInWithRedirect(
+            new firebase.auth.FacebookAuthProvider()
+        );
+        
+        firebase.auth().getRedirectResult().then(gpRes => {
+            this.displayToast('Login Success')
+            this.userData = gpRes.additionalUserInfo.profile;
+        }).catch(err => this.displayToast(err));
+
+        /*
+
         // browser login
         if (this.platform.is('core')) {
             firebase.auth().signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(gpRes => {
@@ -81,6 +105,8 @@ export class HomePage {
                 }).catch((err) => this.displayToast('[ERRO 1]' + err));
             }, err => this.displayToast('[ERRO 2]' + err));
         }
+
+        */
     }
 
 }
