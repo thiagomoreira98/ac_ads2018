@@ -62,7 +62,7 @@ export class HomePage {
         // cordova login
         else {
             this.googleplus.login({
-                'webClientId': '157465836336-3vcah4bqikpiegrsog3rkop39obck2gj.apps.googleusercontent.com'
+                'webClientId': '440806468030-8qsv2pi639d00s321nsvrd5f78cs4vav.apps.googleusercontent.com'
             }).then((success) => {
                 console.log(success);
                 let credential = firebase.auth.GoogleAuthProvider.credential(success['idToken'], null);
