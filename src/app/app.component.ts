@@ -14,12 +14,12 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
 
     firebase.initializeApp({
-      apiKey: "AIzaSyBxPmlL0V90ip06DT-vWZSxX7bcofUNaBU",
-      authDomain: "chamadapp.firebaseapp.com",
-      databaseURL: "https://chatapp-3f829.firebaseio.com",
-      projectId: "chamadapp",
-      storageBucket: "chamadapp.appspot.com",
-      messagingSenderId: "157465836336"
+      apiKey: "AIzaSyBA4LqXy0mwe_bLQxn0ulImAgkV7NTszOA",
+      authDomain: "chamadaapp-1090481613034.firebaseapp.com",
+      databaseURL: "https://chamadaapp-1090481613034.firebaseio.com",
+      projectId: "chamadaapp-1090481613034",
+      storageBucket: "chamadaapp-1090481613034.appspot.com",
+      messagingSenderId: "440806468030"
     });
 
 

@@ -80,7 +80,8 @@ export class HomePage {
         );
         
         firebase.auth().getRedirectResult().then(gpRes => {
-            this.displayToast('Login Success')
+            this.displayToast('Login Success');
+            console.log(gpRes)
             this.userData = gpRes.additionalUserInfo.profile;
         }).catch(err => this.displayToast(err));
 
