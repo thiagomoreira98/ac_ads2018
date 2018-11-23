@@ -12,14 +12,15 @@
 
 </ion-header>
 
-
 <ion-content padding>
-
-  <h2>Bem-vindo(a), {{ userData.displayName}}!</h2>
+  <h2>Bem-vindo(a), {{ userData.displayName }}!</h2>
 
   <button ion-button round block color="danger" (click)="logOut()">
     <ion-icon name="log-out"></ion-icon>&nbsp;&nbsp;
     Sair (logout)
   </button>
 
+  <button ion-button color="dark" full round (click)="showQrReaderPage()">
+    Leitor de QR Code
+  </button>
 </ion-content>

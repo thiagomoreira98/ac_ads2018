@@ -2,13 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import * as firebase from 'firebase';
 import { HomePage } from '../home/home';
-
-/**
- * Generated class for the DashboardPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { QrReaderPage } from '../qr-reader/qr-reader';
 
 @Component({
   selector: 'page-dashboard',
@@ -31,4 +25,7 @@ export class DashboardPage {
     this.navCtrl.setRoot(HomePage);
   }
 
+  showQrReaderPage() {
+    this.navCtrl.push(QrReaderPage);
+  }
 }

@@ -29,7 +29,7 @@ export class HomePage {
                 if (authData != null) {
                     this.isUserLoggedIn = true;
                     this.userData = authData;
-                    console.log(authData);
+                    // console.log(authData);
                     //this.displayToast('Usuário autenticado!');
                     this.navCtrl.setRoot(DashboardPage, { userData: this.userData });
                 } else {
@@ -52,7 +52,7 @@ export class HomePage {
         // browser login
         if (this.platform.is('core')) {
             firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(gpRes => {
-                console.log(gpRes);
+                // console.log(gpRes);
                 this.displayToast('Login Success')
                 this.userData = gpRes.additionalUserInfo.profile;
             }).catch(err => this.displayToast(err));
@@ -64,10 +64,10 @@ export class HomePage {
             this.googleplus.login({
                 'webClientId': '440806468030-8qsv2pi639d00s321nsvrd5f78cs4vav.apps.googleusercontent.com'
             }).then((success) => {
-                console.log(success);
+                // console.log(success);
                 let credential = firebase.auth.GoogleAuthProvider.credential(success['idToken'], null);
                 firebase.auth().signInWithCredential(credential).then((data) => {
-                    console.log(data);
+                    // console.log(data);
                 }).catch((err) => this.displayToast('[ERRO 1]' + err));
             }, err => this.displayToast('[ERRO 2]' + err));
         }
@@ -81,7 +81,7 @@ export class HomePage {
         
         firebase.auth().getRedirectResult().then(gpRes => {
             this.displayToast('Login Success');
-            console.log(gpRes)
+            // console.log(gpRes)
             this.userData = gpRes.additionalUserInfo.profile;
         }).catch(err => this.displayToast(err));
 
