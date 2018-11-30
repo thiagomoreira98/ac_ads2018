@@ -1,0 +1,42 @@
+{
+    "project_info": {
+      "project_number": "440806468030",
+      "firebase_url": "https://chamadaapp-1090481613034.firebaseio.com",
+      "project_id": "chamadaapp-1090481613034",
+      "storage_bucket": "chamadaapp-1090481613034.appspot.com"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:440806468030:android:47efaacb67384d4f",
+          "android_client_info": {
+            "package_name": "br.edu.fatecfranca.ra1090481613034"
+          }
+        },
+        "oauth_client": [
+          {
+            "client_id": "440806468030-8qsv2pi639d00s321nsvrd5f78cs4vav.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+        "api_key": [
+          {
+            "current_key": "AIzaSyAqY6gD04COyag34wew_gUk-yLZzAmp-gc"
+          }
+        ],
+        "services": {
+          "analytics_service": {
+            "status": 1
+          },
+          "appinvite_service": {
+            "status": 1,
+            "other_platform_oauth_client": []
+          },
+          "ads_service": {
+            "status": 2
+          }
+        }
+      }
+    ],
+    "configuration_version": "1"
+  }

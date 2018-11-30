@@ -1,0 +1,118 @@
+import { Component } from '@angular/core';
+import { ToastController, Platform, NavController } from 'ionic-angular';
+import { GooglePlus } from '@ionic-native/google-plus';
+import { Facebook } from '@ionic-native/facebook';
+import * as firebase from 'firebase';
+
+import { DashboardPage } from '../dashboard/dashboard';
+
+@Component({
+    selector: 'page-home',
+    templateUrl: 'home.html'
+})
+export class HomePage {
+    isUserLoggedIn: any = false;
+    userData: any = {};
+
+    constructor(
+        public toastCtrl: ToastController, 
+        public platform: Platform, 
+        public googleplus: GooglePlus, 
+        public facebook: Facebook,
+        public navCtrl : NavController
+        ) {
+        platform.ready().then(() => {
+            firebase.auth().onAuthStateChanged(authData => {
+                if (authData != null) {
+                    this.isUserLoggedIn = true;
+                    this.userData = authData;
+                    this.displayToast('Usuário autenticado!');
+                    this.navCtrl.setRoot(DashboardPage, { userData: this.userData });
+                } else {
+                    this.userData = {};
+                }
+            });
+        });
+    }
+
+    logout() {
+        firebase.auth().signOut();
+    }
+
+    displayToast(message) {
+        this.toastCtrl.create({ message, duration: 3000 }).present();
+    }
+
+    googleLogin() {
+        firebase.auth().signInWithRedirect(new firebase.auth.GoogleAuthProvider().addScope('https://www.googleapis.com/auth/contacts.readonly'));
+
+        firebase.auth().getRedirectResult().then(gpRes => {
+            this.displayToast('Login Success');
+            this.userData = gpRes.additionalUserInfo.profile;
+        }).catch(err => this.displayToast(err));
+        
+    }
+
+    /*googleLogin() {
+
+        // browser login
+       if (this.platform.is('core')) {
+            firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(gpRes => {
+                console.log(gpRes);
+                this.displayToast('Login Success')
+                this.userData = gpRes.additionalUserInfo.profile;
+            }).catch(err => this.displayToast(err));
+
+        }
+
+        // cordova login
+        else {
+            this.googleplus.login({
+                'webClientId': '157465836336-3vcah4bqikpiegrsog3rkop39obck2gj.apps.googleusercontent.com'
+            }).then((success) => {
+                console.log(success);
+                let credential = firebase.auth.GoogleAuthProvider.credential(success['idToken'], null);
+                firebase.auth().signInWithCredential(credential).then((data) => {
+                    console.log(data);
+                }).catch((err) => this.displayToast('[ERRO 1]' + err));
+            }, err => this.displayToast('[ERRO 2]' + err));
+        }
+    }*/
+
+    facebookLogin() {
+        
+        firebase.auth().signInWithRedirect(
+            new firebase.auth.FacebookAuthProvider()
+        );
+        
+        firebase.auth().getRedirectResult().then(gpRes => {
+            this.displayToast('Login Success')
+            this.userData = gpRes.additionalUserInfo.profile;
+        }).catch(err => this.displayToast(err));
+
+        /*
+
+        // browser login
+        if (this.platform.is('core')) {
+            firebase.auth().signInWithPopup(new firebase.auth.FacebookAuthProvider()).then(gpRes => {
+                this.displayToast('Login Success')
+                this.userData = gpRes.additionalUserInfo.profile;
+            }).catch(err => this.displayToast(err));
+
+        }
+
+        // cordova login
+        else {
+            this.facebook.login(['email']).then((success) => {
+                console.log(success);
+                let credential = firebase.auth.FacebookAuthProvider.credential(success.authResponse.accessToken);
+                firebase.auth().signInWithCredential(credential).then((data) => {
+                    console.log(data);
+                }).catch((err) => this.displayToast('[ERRO 1]' + err));
+            }, err => this.displayToast('[ERRO 2]' + err));
+        }
+
+        */
+    }
+
+}
